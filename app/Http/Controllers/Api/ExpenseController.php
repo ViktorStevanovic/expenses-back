@@ -34,7 +34,20 @@ class ExpenseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+
+        // Create a new Expense instance
+        $expense = new Expense();
+        // dd($expense->amount);
+
+        $expense->amount = $data['amount']; // Assign the amount from the request data
+        $expense->category_id = $data['category_id'];
+        $expense->date = $data['date'];
+        // Save the expense to the database
+        $expense->save();
+
+        // Return a response indicating success
+        return response()->json(['message' => 'Expense added successfully'], 201);
     }
 
     /**
